@@ -27,6 +27,8 @@ open class JZBaseWeekView: UIView {
     public var collectionView: JZCollectionView!
     public var flowLayout: JZWeekViewFlowLayout!
 
+    public var fixAlldayHeaderHeight: CGFloat? = nil
+    
     /**
      - The initial date of current collectionView. When page is not scrolling, the inital date is always
      (numOfDays) days before current page first date, which means the start of the collectionView, not the current page first date
@@ -226,7 +228,7 @@ open class JZBaseWeekView: UIView {
     /// If the actual height(contentSize height) is higher than this one, then the AllDayHeader will become scrollable.
     /// - Parameter maxEventsCount: Among all days appeared in current page, the maximum all-day events count in one day
     open func getAllDayHeaderHeight(maxEventsCount: Int) -> CGFloat {
-        return flowLayout.defaultAllDayOneLineHeight * CGFloat(min(maxEventsCount, 2))
+        return fixAlldayHeaderHeight != nil ? fixAlldayHeaderHeight! : flowLayout.defaultAllDayOneLineHeight * CGFloat(min(maxEventsCount, 2))
     }
 
     /// Update collectionViewLayout with custom flowLayout. For some other values like gridThickness and contentsMargin, please inherit from JZWeekViewFlowLayout to change the default value
