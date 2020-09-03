@@ -11,16 +11,13 @@ import UIKit
 open class JZHourBackground: UICollectionReusableView {
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        let colors: [UIColor] = [.red, .yellow, .black, .orange, .purple, .gray, .brown, .cyan, .blue, .white]
-        
-        self.backgroundColor = colors[Int(arc4random()) % 10]
     }
     
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func updateView(date: Date) {
+    open func updateView(date: Date) {
         let weekday = Calendar.current.component(.weekday, from: date)
         let hour = Calendar.current.component(.hour, from: date)
         
