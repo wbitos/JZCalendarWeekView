@@ -11,6 +11,7 @@
 		1F2F29B722959B6C004B7CA1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2F29B622959B6C004B7CA1 /* Constants.swift */; };
 		1F2F29B922959C1E004B7CA1 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2F29B822959C1E004B7CA1 /* Helpers.swift */; };
 		1FB6140D2130FE7400F08ACD /* JZCurrentTimelinePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB6140C2130FE7400F08ACD /* JZCurrentTimelinePage.swift */; };
+		5B0730F52500FAE900EC4864 /* JZHourBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0730F42500FAE900EC4864 /* JZHourBackground.swift */; };
 		8E023C78206C6E4B00C523BE /* JZLongPressWeekViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E023C77206C6E4B00C523BE /* JZLongPressWeekViewTests.swift */; };
 		8E023C7A206C6E4B00C523BE /* JZCalendarWeekView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E1BA94A206B4329007BE13C /* JZCalendarWeekView.framework */; };
 		8E023C84206C732300C523BE /* JZBaseEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E023C83206C732300C523BE /* JZBaseEvent.swift */; };
@@ -53,6 +54,7 @@
 		1F2F29B622959B6C004B7CA1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1F2F29B822959C1E004B7CA1 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		1FB6140C2130FE7400F08ACD /* JZCurrentTimelinePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JZCurrentTimelinePage.swift; sourceTree = "<group>"; };
+		5B0730F42500FAE900EC4864 /* JZHourBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JZHourBackground.swift; sourceTree = "<group>"; };
 		8E023C75206C6E4B00C523BE /* JZCalendarWeekViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JZCalendarWeekViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E023C77206C6E4B00C523BE /* JZLongPressWeekViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JZLongPressWeekViewTests.swift; sourceTree = "<group>"; };
 		8E023C79206C6E4B00C523BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				8EF7EBCC20A55C8E00D5CEEA /* JZAllDayCorner.swift */,
 				8EF7EBCE20A55CF900D5CEEA /* JZAllDayHeader.swift */,
 				8EF7EBD020A55D1000D5CEEA /* JZAllDayHeaderBackground.swift */,
+				5B0730F42500FAE900EC4864 /* JZHourBackground.swift */,
 			);
 			path = ReusableViews;
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 				8EF7EBD120A55D1000D5CEEA /* JZAllDayHeaderBackground.swift in Sources */,
 				8E023C86206C956F00C523BE /* JZWeekViewColors.swift in Sources */,
 				8E1BA96A206B5350007BE13C /* JZWeekViewHelper.swift in Sources */,
+				5B0730F52500FAE900EC4864 /* JZHourBackground.swift in Sources */,
 				8E1BA962206B4B99007BE13C /* JZRowHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

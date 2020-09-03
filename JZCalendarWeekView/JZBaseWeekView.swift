@@ -109,7 +109,7 @@ open class JZBaseWeekView: UIView {
     /// Override this function to customise items, supplimentaryViews and decorationViews
     open func registerViewClasses() {
         // supplementary
-        self.collectionView.registerSupplimentaryViews([JZColumnHeader.self, JZCornerHeader.self, JZRowHeader.self, JZAllDayHeader.self])
+        self.collectionView.registerSupplimentaryViews([JZColumnHeader.self, JZCornerHeader.self, JZRowHeader.self, JZAllDayHeader.self, JZHourBackground.self])
 
         // decoration
         flowLayout.registerDecorationViews([JZColumnHeaderBackground.self, JZRowHeaderBackground.self,
@@ -482,6 +482,11 @@ extension JZBaseWeekView: UICollectionViewDataSource {
                 if let currentTimeline = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: kind, for: indexPath) as? JZCurrentTimelineSection {
                     view = getSectionTypeCurrentTimeline(timeline: currentTimeline, indexPath: indexPath)
                 }
+            }
+        case JZSupplementaryViewKinds.hourBackground:
+            if let hourBackground = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: kind, for: indexPath) as? JZHourBackground {
+                hourBackground.updateView(date: flowLayout.dateTimeForIndexPath(at: indexPath))
+                view = hourBackground
             }
         default: break
         }

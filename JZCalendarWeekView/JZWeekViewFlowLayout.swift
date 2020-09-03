@@ -82,7 +82,8 @@ open class JZWeekViewFlowLayout: UICollectionViewFlowLayout {
     var allDayHeaderAttributes = AttDic()
     var allDayHeaderBackgroundAttributes = AttDic()
     var allDayCornerAttributes = AttDic()
-
+    var hourBackgroundAttributes = AttDic()
+    
     public weak var delegate: WeekViewFlowLayoutDelegate?
     private var minuteTimer: Timer?
 
@@ -188,6 +189,8 @@ open class JZWeekViewFlowLayout: UICollectionViewFlowLayout {
             allAttributes.append(contentsOf: allDayCornerAttributes.values)
             allAttributes.append(contentsOf: allDayHeaderAttributes.values)
             allAttributes.append(contentsOf: allDayHeaderBackgroundAttributes.values)
+            
+            allAttributes.append(contentsOf: hourBackgroundAttributes.values)
         }
     }
 
@@ -229,7 +232,7 @@ open class JZWeekViewFlowLayout: UICollectionViewFlowLayout {
             (attributes, rowHeaderAttributes) = layoutAttributesForSupplemantaryView(at: IndexPath(item: rowHeaderIndex, section: 0),
                                                                                      ofKind: JZSupplementaryViewKinds.rowHeader,
                                                                                      withItemCache: rowHeaderAttributes)
-            let rowHeaderMinY = calendarContentMinY + hourHeight * CGFloat(rowHeaderIndex) - (hourHeight / 2.0).toDecimal1Value()
+            let rowHeaderMinY = calendarContentMinY + hourHeight * CGFloat(rowHeaderIndex)
             attributes.frame = CGRect(x: rowHeaderMinX, y: rowHeaderMinY, width: rowHeaderWidth, height: hourHeight)
             attributes.zIndex = zIndexForElementKind(JZSupplementaryViewKinds.rowHeader)
         }
@@ -298,6 +301,22 @@ open class JZWeekViewFlowLayout: UICollectionViewFlowLayout {
         }
 
         layoutHorizontalGridLinesAttributes(calendarStartX: calendarContentMinX, calendarStartY: calendarContentMinY)
+        
+        
+        // Hour Background
+        sectionIndexes.enumerate(_:) { (section, _) in
+            let sectionMinX = calendarContentMinX + sectionWidth * CGFloat(section)
+            
+            for hourBackgroundIndex in 0...24 {
+                (attributes, hourBackgroundAttributes) = layoutAttributesForSupplemantaryView(at: IndexPath(item: hourBackgroundIndex, section: section),
+                                                                                         ofKind: JZSupplementaryViewKinds.hourBackground,
+                                                                                         withItemCache: hourBackgroundAttributes)
+                let hourBackgroundMinY = calendarContentMinY + hourHeight * CGFloat(hourBackgroundIndex)
+                attributes.frame = CGRect(x: sectionMinX, y: hourBackgroundMinY, width: sectionWidth, height: hourHeight)
+                attributes.zIndex = zIndexForElementKind(JZSupplementaryViewKinds.hourBackground)
+            }
+        }
+
     }
 
     // MARK: - Layout Attributes
@@ -335,7 +354,7 @@ open class JZWeekViewFlowLayout: UICollectionViewFlowLayout {
         adjustItemsForOverlap(sectionItemAttributes, inSection: section, sectionMinX: sectionX,
                               currentSectionZ: zIndexForElementKind(JZSupplementaryViewKinds.eventCell))
     }
-
+    
     func layoutVerticalGridLinesAttributes(section: Int, sectionX: CGFloat, calendarGridMinY: CGFloat, sectionHeight: CGFloat) {
         var attributes = UICollectionViewLayoutAttributes()
 
@@ -701,6 +720,7 @@ open class JZWeekViewFlowLayout: UICollectionViewFlowLayout {
         allDayHeaderAttributes.removeAll()
         allDayHeaderBackgroundAttributes.removeAll()
         allDayCornerAttributes.removeAll()
+        hourBackgroundAttributes.removeAll()
     }
 
     override open func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
@@ -780,29 +800,37 @@ open class JZWeekViewFlowLayout: UICollectionViewFlowLayout {
         return Calendar.current.startOfDay(for: day!)
     }
 
+    open func dateTimeForIndexPath(at indexPath: IndexPath) -> Date {
+        let day = delegate?.collectionView(collectionView!, layout: self, dayForSection: indexPath.section)
+        let date = Calendar.current.startOfDay(for: day!).add(component: .hour, value: indexPath.item)
+        return date
+    }
+    
     // MARK: - z index
     open func zIndexForElementKind(_ kind: String) -> Int {
         switch kind {
         case JZSupplementaryViewKinds.cornerHeader, JZDecorationViewKinds.allDayCorner:
-            return minOverlayZ + 10
+            return minOverlayZ + 11
         case JZSupplementaryViewKinds.allDayHeader:
-            return minOverlayZ + 9
+            return minOverlayZ + 10
         case JZDecorationViewKinds.allDayHeaderBackground:
-            return minOverlayZ + 8
+            return minOverlayZ + 9
         case JZSupplementaryViewKinds.rowHeader:
-            return minOverlayZ + 7
+            return minOverlayZ + 8
         case JZDecorationViewKinds.rowHeaderBackground:
-            return minOverlayZ + 6
+            return minOverlayZ + 7
         case JZSupplementaryViewKinds.columnHeader:
-            return minOverlayZ + 5
+            return minOverlayZ + 6
         case JZDecorationViewKinds.columnHeaderBackground:
-            return minOverlayZ + 4
+            return minOverlayZ + 5
         case JZSupplementaryViewKinds.currentTimeline:
-            return minOverlayZ + 3
+            return minOverlayZ + 4
         case JZDecorationViewKinds.horizontalGridline:
-            return minBackgroundZ + 2
+            return minBackgroundZ + 3
         case JZDecorationViewKinds.verticalGridline:
-            return minBackgroundZ + 1
+            return minBackgroundZ + 2
+        case JZSupplementaryViewKinds.hourBackground:
+                return minBackgroundZ + 1
         default:
             return minCellZ
         }
